@@ -6,18 +6,16 @@ set colorcolumn=80
 
 """ Copy and Paste
 "set clipboard=unnamed
+set tabstop=4
+set shiftwidth=4
+
+""" Leader
+let mapleader=','
 
 """ Search
 set ic
 set hlsearch
 nnoremap <leader>m :noh<CR>
-
-""" Tab
-set tabstop=8 
-set softtabstop=0 
-set expandtab 
-set shiftwidth=4 
-set smarttab
 
 """ Navigation
 noremap <C-h> <C-w>h
@@ -33,7 +31,6 @@ set splitright
 set splitbelow
 
 """ Shortcuts
-let mapleader=','
 noremap <C-s> :w<CR>
 noremap <leader>y "+y
 noremap <leader>p "+p
@@ -73,7 +70,6 @@ call plug#end()
 let g:ycm_autoclose_preview_window_after_completion=1
 
 """ Colors
-set background=light
 set background=dark
 colorscheme dracula
 
@@ -84,3 +80,5 @@ if has('persistent_undo')      "check if your vim version supports it
   endif     
 
 set guioptions=
+
+nnoremap <C-e> :tabnext<CR>
