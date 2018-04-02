@@ -82,3 +82,7 @@ if has('persistent_undo')      "check if your vim version supports it
 set guioptions=
 
 nnoremap <C-e> :tabnext<CR>
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+
