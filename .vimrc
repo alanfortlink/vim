@@ -40,6 +40,9 @@ noremap <leader>q :q<CR>
 """ NerdTree
 noremap <leader>n :NERDTreeToggle<CR>
 noremap <leader>v :vnew<CR>
+noremap <leader>t :tabnew<CR>
+noremap <leader>w :w<CR>
+noremap <leader>q :q<CR>
 
 """ FZF
 noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
