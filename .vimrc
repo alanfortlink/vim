@@ -65,6 +65,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'tommcdo/vim-exchange'
+	Plug 'vim-airline/vim-airline'
 call plug#end()
 
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -84,5 +85,3 @@ set guioptions=
 nnoremap <C-e> :tabnext<CR>
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-
-
