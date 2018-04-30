@@ -69,6 +69,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'tommcdo/vim-exchange'
 	Plug 'vim-airline/vim-airline'
+	Plug 'tpope/vim-surround'
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+	Plug 'ervandew/supertab'
 call plug#end()
 
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -88,3 +92,13 @@ set guioptions=
 nnoremap <C-e> :tabnext<CR>
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+let g:UltiSnipsEditSplit="vertical"
+
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
