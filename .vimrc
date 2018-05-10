@@ -58,7 +58,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive'
     Plug 'scrooloose/nerdtree'
     Plug 'tpope/vim-surround'
-    Plug 'kien/ctrlp.vim'
     Plug 'valloric/youcompleteme'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'   
@@ -78,9 +77,8 @@ call plug#end()
 let g:ycm_autoclose_preview_window_after_completion=1
 
 """ Colors
-set background=dark
+set termguicolors
 colorscheme dracula
-
 
 """ Undo 
 if has('persistent_undo')      "check if your vim version supports it
