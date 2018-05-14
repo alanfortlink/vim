@@ -37,12 +37,16 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 noremap <leader>q :q<CR>
 
-""" NerdTree
+""" Leader mappings
 noremap <leader>n :NERDTreeToggle<CR>
 noremap <leader>v :vnew<CR>
 noremap <leader>t :tabnew<CR>
 noremap <leader>w :w<CR>
 noremap <leader>q :q<CR>
+noremap <leader>a {V}gq
+
+""" ClangFormat
+noremap <leader>f :ClangFormat<CR>
 
 """ FZF
 noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
@@ -68,13 +72,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'tommcdo/vim-exchange'
 	Plug 'vim-airline/vim-airline'
-	Plug 'tpope/vim-surround'
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
 	Plug 'ervandew/supertab'
+	Plug 'rhysd/vim-clang-format'
 call plug#end()
 
-let g:ycm_autoclose_preview_window_after_completion=1
+"""let g:ycm_autoclose_preview_window_after_completion=1
 
 """ Colors
 set termguicolors
@@ -100,3 +104,14 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+let g:clang_format#code_style = "google"
+
+let g:clang_format#style_options = {
+			\ "UseTab": "Never",
+			\ "IndentWidth": "4",
+			\ "BreakBeforeBraces": "Attach",
+			\ "AllowShortIfStatementsOnASingleLine": "false",
+			\ "IndentCaseLabels": "false",
+			\ "ColumnLimit": "80" 
+			\}
