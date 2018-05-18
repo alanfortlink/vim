@@ -38,15 +38,16 @@ noremap <leader>P "+P
 noremap <leader>q :q<CR>
 
 """ Leader mappings
-noremap <leader>n :NERDTreeToggle<CR>
+noremap <bslash><bslash> :NERDTreeToggle<CR>
 noremap <leader>v :vnew<CR>
+noremap <leader>n :new<CR>
 noremap <leader>t :tabnew<CR>
 noremap <leader>w :w<CR>
 noremap <leader>q :q<CR>
 noremap <leader>a {V}gq
 
 """ ClangFormat
-noremap <leader>f :ClangFormat<CR>
+noremap <leader><leader> :ClangFormat<CR>
 
 """ FZF
 noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
