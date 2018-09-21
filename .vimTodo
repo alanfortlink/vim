@@ -1,0 +1,39 @@
+- GET Timecard
+	- Return:
+		{
+			crewAttendances: [
+				{
+					generalData: ...,
+					employeeAttendances: [
+						{
+							generalData: ...,
+							employee: {...},
+							production: [{}]
+						}
+					],
+					activities: [
+						{
+							generalData: ...,
+						}
+					],
+					production: [{
+						{
+							generalData: ...
+						}
+					}],
+					answers: [{}],
+					metaData: [{
+						TODO: types of absent employees
+					}],
+				}
+			],
+			info: [
+				legalStatements: [{}],
+				packs: [{}],
+				activities: [{}],
+				crops: [{
+					generalData: ...,
+					varieties: [{}]
+				}],
+			]
+		}
