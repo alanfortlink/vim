@@ -8,7 +8,7 @@ set colorcolumn=80
 "set clipboard=unnamed
 set tabstop=4
 set shiftwidth=4
-set expandtab
+set noexpandtab
 
 """ Leader
 let mapleader=','
@@ -46,6 +46,18 @@ noremap <leader>t :tabnew<CR>
 noremap <leader>w :w<CR>
 noremap <leader>q :q<CR>
 noremap <leader>a {V}gq
+noremap <leader>0 :tabnew<CR>:e ~/.vimTodo<CR>
+
+""" Tab navigation
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
 
 """ ClangFormat
 noremap <leader><leader> :ClangFormat<CR>
@@ -73,11 +85,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'tommcdo/vim-exchange'
-	Plug 'vim-airline/vim-airline'
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
-	Plug 'ervandew/supertab'
-	Plug 'rhysd/vim-clang-format'
+	Plug 'itchyny/lightline.vim'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'ervandew/supertab'
+    Plug 'rhysd/vim-clang-format'
+	Plug 'dart-lang/dart-vim-plugin'
+	Plug 'reisub0/hot-reload.vim'
+	Plug 'liuchengxu/space-vim-dark'
 call plug#end()
 
 """let g:ycm_autoclose_preview_window_after_completion=1
@@ -110,10 +125,13 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:clang_format#code_style = "google"
 
 let g:clang_format#style_options = {
-			\ "UseTab": "Never",
-			\ "IndentWidth": "4",
+			\ "UseTab": "Always",
 			\ "BreakBeforeBraces": "Attach",
 			\ "AllowShortIfStatementsOnASingleLine": "false",
 			\ "IndentCaseLabels": "false",
-			\ "ColumnLimit": "80" 
 			\}
+
+set guifont=Monaco:h10
+syntax on
+set laststatus=2
+
