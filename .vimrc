@@ -2,12 +2,14 @@
 set relativenumber
 set cursorline
 set nu
-set colorcolumn=80
+set colorcolumn=800
+set tabstop=4
+set softtabstop=0 noexpandtab
+set shiftwidth=4
+set smarttab
 
 """ Copy and Paste
 "set clipboard=unnamed
-set tabstop=4
-set shiftwidth=4
 set noexpandtab
 
 """ Leader
@@ -67,32 +69,35 @@ noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
 
 """ Plugins with VimPlug
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.vim/plugged')
-    Plug 'tpope/vim-fugitive'
-    Plug 'scrooloose/nerdtree'
-    Plug 'tpope/vim-surround'
-    Plug 'valloric/youcompleteme'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'   
-    Plug 'kristijanhusak/vim-hybrid-material'
-    Plug 'xuyuanp/nerdtree-git-plugin'
-    Plug 'tomasiser/vim-code-dark'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'dracula/vim', { 'as': 'dracula' }
-    Plug 'tommcdo/vim-exchange'
-	Plug 'itchyny/lightline.vim'
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
-    Plug 'ervandew/supertab'
-    Plug 'rhysd/vim-clang-format'
-	Plug 'dart-lang/dart-vim-plugin'
-	Plug 'reisub0/hot-reload.vim'
-	Plug 'liuchengxu/space-vim-dark'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
+"""		 Plug 'valloric/youcompleteme'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'		
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'tomasiser/vim-code-dark'
+Plug 'airblade/vim-gitgutter'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'tommcdo/vim-exchange'
+Plug 'itchyny/lightline.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'ervandew/supertab'
+Plug 'rhysd/vim-clang-format'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'reisub0/hot-reload.vim'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'kaicataldo/material.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'maksimr/vim-jsbeautify'
 call plug#end()
 
 """let g:ycm_autoclose_preview_window_after_completion=1
@@ -100,17 +105,18 @@ call plug#end()
 """ Colors
 set termguicolors
 colorscheme dracula
+let g:material_theme_style = 'dark'
 
 """ Undo 
-if has('persistent_undo')      "check if your vim version supports it
-  set undodir=$HOME/.vim/undo  "directory where the undo files will be stored
-  endif     
+if has('persistent_undo')			 "check if your vim version supports it
+	set undodir=$HOME/.vim/undo  "directory where the undo files will be stored
+endif			
 
 set guioptions=
 
 nnoremap <C-e> :tabnext<CR>
 
-let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+""" let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
 let g:UltiSnipsEditSplit="vertical"
 
@@ -131,7 +137,7 @@ let g:clang_format#style_options = {
 			\ "IndentCaseLabels": "false",
 			\}
 
-set guifont=Monaco:h10
 syntax on
-set laststatus=2
+let g:python_highlight_all = 1
+
 
