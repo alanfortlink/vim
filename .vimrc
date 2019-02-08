@@ -2,7 +2,7 @@
 set relativenumber
 set cursorline
 set nu
-set colorcolumn=800
+set colorcolumn=80
 set tabstop=4
 set softtabstop=0 noexpandtab
 set shiftwidth=4
@@ -10,7 +10,7 @@ set smarttab
 
 """ Copy and Paste
 "set clipboard=unnamed
-set noexpandtab
+set expandtab
 
 """ Leader
 let mapleader=','
@@ -47,7 +47,7 @@ noremap <leader>n :new<CR>
 noremap <leader>t :tabnew<CR>
 noremap <leader>w :w<CR>
 noremap <leader>q :q<CR>
-noremap <leader>a {V}gq
+noremap <leader>a mj{V}gq`j
 noremap <leader>0 :tabnew<CR>:e ~/.vimTodo<CR>
 
 """ Tab navigation
@@ -78,7 +78,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
-"""		 Plug 'valloric/youcompleteme'
+"Plug 'valloric/youcompleteme'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'		
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -98,6 +98,7 @@ Plug 'liuchengxu/space-vim-dark'
 Plug 'kaicataldo/material.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maksimr/vim-jsbeautify'
+Plug 'qpkorr/vim-renamer'
 call plug#end()
 
 """let g:ycm_autoclose_preview_window_after_completion=1
@@ -128,14 +129,7 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:clang_format#code_style = "google"
-
-let g:clang_format#style_options = {
-			\ "UseTab": "Always",
-			\ "BreakBeforeBraces": "Attach",
-			\ "AllowShortIfStatementsOnASingleLine": "false",
-			\ "IndentCaseLabels": "false",
-			\}
+let g:clang_format#code_style = "llvm"
 
 syntax on
 let g:python_highlight_all = 1
