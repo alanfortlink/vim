@@ -61,6 +61,9 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 
+let maplocalleader=';'
+noremap <leader>. :cw<CR>
+
 """ ClangFormat
 noremap <leader><leader> :ClangFormat<CR>
 
@@ -99,6 +102,8 @@ Plug 'kaicataldo/material.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'qpkorr/vim-renamer'
+Plug 'lervag/vimtex'
+
 call plug#end()
 
 """let g:ycm_autoclose_preview_window_after_completion=1
