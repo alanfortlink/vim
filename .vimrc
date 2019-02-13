@@ -139,4 +139,7 @@ let g:clang_format#code_style = "llvm"
 syntax on
 let g:python_highlight_all = 1
 
+set spell
+set spelllang=pt_br
 
+let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
