@@ -103,6 +103,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'qpkorr/vim-renamer'
 Plug 'lervag/vimtex'
+Plug 'encody/nvim'
 
 call plug#end()
 
@@ -110,7 +111,7 @@ call plug#end()
 
 """ Colors
 set termguicolors
-colorscheme dracula
+colorscheme molokai
 let g:material_theme_style = 'dark'
 
 """ Undo 
