@@ -65,7 +65,7 @@ let maplocalleader=';'
 noremap <leader>. :cw<CR>
 
 """ ClangFormat
-noremap <leader><leader> :ClangFormat<CR>
+"noremap <leader><leader> :ClangFormat<CR>
 
 """ FZF
 noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
@@ -81,7 +81,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
-"Plug 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'		
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -104,6 +104,7 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'qpkorr/vim-renamer'
 Plug 'lervag/vimtex'
 Plug 'encody/nvim'
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
@@ -144,3 +145,5 @@ set spell
 set spelllang=pt_br
 
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+
+hi SpellBad cterm=underline ctermfg=009 guifg=#ff0000
