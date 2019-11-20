@@ -4,15 +4,16 @@ set cursorline
 set nu
 set colorcolumn=80
 set tabstop=4
-set softtabstop=0 noexpandtab
+set expandtab
 set shiftwidth=4
 set smarttab
+set autoindent
 
 """ Copy and Paste
-"set clipboard=unnamed
-set expandtab
-
-""" Leader
+set clipboard=unnamed
+"set expandtab
+"
+"""" Leader
 let mapleader=','
 
 """ Search
@@ -39,16 +40,19 @@ noremap <leader>y "+y
 noremap <leader>p "+p
 noremap <leader>P "+P
 noremap <leader>q :q<CR>
+noremap <leader>s :cclose<CR>
 
 """ Leader mappings
 noremap <bslash><bslash> :NERDTreeToggle<CR>
 noremap <leader>v :vnew<CR>
 noremap <leader>n :new<CR>
 noremap <leader>t :tabnew<CR>
-noremap <leader>w :w<CR>
 noremap <leader>q :q<CR>
 noremap <leader>a mj{V}gq`j
 noremap <leader>0 :tabnew<CR>:e ~/.vimTodo<CR>
+
+noremap <leader>w :call SendCurrentFileToRemote()<CR>
+noremap <leader>W :call SendAllOpenBuffersToRemote()<CR>
 
 """ Tab navigation
 noremap <leader>1 1gt
@@ -61,13 +65,20 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 
+noremap <leader>l :call LoadTags()<CR> :redraw!<CR>
+noremap <leader>f yiw :cs find s <C-r>"<CR>
+noremap <leader>g y:vimgrep "<c-r>"" %<CR> :copen<CR>
+
+imap jj <Esc>
+
 let maplocalleader=';'
 noremap <leader>. :cw<CR>
+noremap <localleader>p :echo expand('%:p')<CR>
 
 """ ClangFormat
 "noremap <leader><leader> :ClangFormat<CR>
-
-""" FZF
+"
+"""" FZF
 noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
 
 """ Plugins with VimPlug
@@ -95,25 +106,22 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ervandew/supertab'
 Plug 'rhysd/vim-clang-format'
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'reisub0/hot-reload.vim'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'kaicataldo/material.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'maksimr/vim-jsbeautify'
 Plug 'qpkorr/vim-renamer'
-Plug 'lervag/vimtex'
-Plug 'encody/nvim'
-Plug 'easymotion/vim-easymotion'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'alanfortlink/vim-sftp'
 
 call plug#end()
 
 """let g:ycm_autoclose_preview_window_after_completion=1
 
 """ Colors
+set t_Co=256
+set t_ut=
+colorscheme codedark
 set termguicolors
-colorscheme molokai
-let g:material_theme_style = 'dark'
+let g:airline_theme = 'codedark'
 
 """ Undo 
 if has('persistent_undo')			 "check if your vim version supports it
@@ -124,12 +132,10 @@ set guioptions=
 
 nnoremap <C-e> :tabnext<CR>
 
-""" let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-
 let g:UltiSnipsEditSplit="vertical"
 
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -141,9 +147,34 @@ let g:clang_format#code_style = "llvm"
 syntax on
 let g:python_highlight_all = 1
 
-set spell
-set spelllang=pt_br
-
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 hi SpellBad cterm=underline ctermfg=009 guifg=#ff0000
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+let $GIT_SSL_NO_VERIFY = 'true'
+
+set guifont=Consolas\ 10
+
+function! LoadTags()
+	silent cs reset
+	silent !cscope -Rb
+	silent cs add cscope.out
+	silent !rm cscope.out
+endfunction
+
+" call LoadTags()
+
+" au VimEnter * silent !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+" au VimLeave * silent !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+let g:asyncrun_open = 2
+
+function! CloseQuickFixAndEchoStatus()
+endfunction
+
+autocmd User AsyncRunStop call CloseQuickFixAndEchoStatus()
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+
