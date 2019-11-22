@@ -41,6 +41,7 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 noremap <leader>q :q<CR>
 noremap <leader>s :cclose<CR>
+noremap <leader>S :copen 8<CR>
 
 """ Leader mappings
 noremap <bslash><bslash> :NERDTreeToggle<CR>
