@@ -9,6 +9,9 @@ set shiftwidth=4
 set smarttab
 set autoindent
 
+set noswapfile
+set ignorecase
+
 """ Copy and Paste
 set clipboard=unnamed
 "set expandtab
@@ -66,9 +69,17 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 
+noremap <leader>i :YcmCompleter GoToInclude<CR>
+noremap <leader>d :YcmCompleter GoToDeclaration<CR>
+noremap <leader>D :YcmCompleter GoToDefinition<CR>
+
 noremap <leader>l :call LoadTags()<CR> :redraw!<CR>
 noremap <leader>f yiw :cs find s <C-r>"<CR>
-noremap <leader>g y:vimgrep "<c-r>"" %<CR> :copen<CR>
+noremap <leader>g y:vimgrep /<c-r>"/j **/*.* <CR> :copen<CR>
+noremap <leader>G :copen<CR> :vimgrep //j **/*.*<Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
+noremap <leader>j <C-w>_<C-w><Bar> 
+noremap <leader>k <C-w>=
 
 imap jj <Esc>
 
@@ -77,7 +88,7 @@ noremap <leader>. :cw<CR>
 noremap <localleader>p :echo expand('%:p')<CR>
 
 """ ClangFormat
-"noremap <leader><leader> :ClangFormat<CR>
+noremap <leader><leader> :ClangFormat<CR>
 "
 """" FZF
 noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
@@ -156,8 +167,6 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd
 
 let $GIT_SSL_NO_VERIFY = 'true'
 
-set guifont=Consolas\ 10
-
 function! LoadTags()
 	silent cs reset
 	silent !cscope -Rb
@@ -169,6 +178,20 @@ endfunction
 
 " au VimEnter * silent !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 " au VimLeave * silent !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+  \             're!\[.*\]\s'],
+  \   'ocaml' : ['.', '#'],
+  \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'ruby' : ['.', '::'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
 
 let g:asyncrun_open = 2
 
