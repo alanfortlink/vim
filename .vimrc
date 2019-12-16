@@ -1,7 +1,27 @@
-""" Visual
+""" General
+noremap <leader>y "+y
+noremap <leader>p "+p
+noremap <leader>P "+P
+noremap <leader>q :q<CR>
+
+let $GIT_SSL_NO_VERIFY = 'true'
+
+""" VIM user interface
+" Relative line numbers
 set relativenumber
+" Highlight cursor line
 set cursorline
+" Show line numbers
 set nu
+" Do not create a swap file
+set noswapfile
+" NO case sensitive
+set ignorecase
+
+""" Files and backups
+syntax enable
+
+""" Text, tab and indent related
 set colorcolumn=80
 set tabstop=4
 set expandtab
@@ -9,22 +29,16 @@ set shiftwidth=4
 set smarttab
 set autoindent
 
-set noswapfile
-set ignorecase
-
-""" Copy and Paste
-set clipboard=unnamed
-"set expandtab
-"
-"""" Leader
-let mapleader=','
-
-""" Search
+""" Search settings
 set ic
 set hlsearch
 nnoremap <leader>m :noh<CR>
 
-""" Navigation
+""" Setup leaders
+let mapleader=','
+let maplocalleader=';'
+
+""" Moving around, tabs and buffers
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
@@ -33,32 +47,12 @@ noremap <C-l> <C-w>l
 noremap <C-Tab> :tabnext<CR>
 noremap <C-S-Tab> :tabNext<CR>
 
-""" Panels
-set splitright
-set splitbelow
+" Maximize current window
+noremap <leader>j <C-w>_<C-w><Bar> 
+" Make open windows to have the same size
+noremap <leader>k <C-w>=
 
-""" Shortcuts
-noremap <C-s> :w<CR>
-noremap <leader>y "+y
-noremap <leader>p "+p
-noremap <leader>P "+P
-noremap <leader>q :q<CR>
-noremap <leader>s :cclose<CR>
-noremap <leader>S :copen 8<CR>
-
-""" Leader mappings
-noremap <bslash><bslash> :NERDTreeToggle<CR>
-noremap <leader>v :vnew<CR>
-noremap <leader>n :new<CR>
-noremap <leader>t :tabnew<CR>
-noremap <leader>q :q<CR>
-noremap <leader>a mj{V}gq`j
-noremap <leader>0 :tabnew<CR>:e ~/.vimTodo<CR>
-
-noremap <leader>w :call SendCurrentFileToRemote()<CR>
-noremap <leader>W :call SendAllOpenBuffersToRemote()<CR>
-
-""" Tab navigation
+" Go to a specific tab (from 1 to 9)
 noremap <leader>1 1gt
 noremap <leader>2 2gt
 noremap <leader>3 3gt
@@ -69,29 +63,74 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 
-noremap <leader>i :YcmCompleter GoToInclude<CR>
-noremap <leader>d :YcmCompleter GoToDeclaration<CR>
-noremap <leader>D :YcmCompleter GoToDefinition<CR>
+" Close quickfix
+noremap <leader>s :cclose<CR>
+" Open quickfix with 8 lines
+noremap <leader>S :copen 8<CR>
 
+noremap <leader>v :vnew<CR>
+noremap <leader>n :new<CR>
+noremap <leader>t :tabnew<CR>
+noremap <leader>q :q<CR>
+noremap <leader>a mj{V}gq`j
+noremap <leader>0 :tabnew<CR>:e ~/.vimTodo<CR>
+
+noremap <leader>c :vnew %<.cpp<CR>
+noremap <leader>h :vnew %<.h<CR>
+
+""" Sounds
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+
+""" vimgrep searching and cope displaying
+" Load tags with to cscope
 noremap <leader>l :call LoadTags()<CR> :redraw!<CR>
+" Find symbol under the cursor with scope
 noremap <leader>f yiw :cs find s <C-r>"<CR>
-noremap <leader>g y:vimgrep /<c-r>"/j **/*.* <CR> :copen<CR>
-noremap <leader>G :copen<CR> :vimgrep //j **/*.*<Left><Left><Left><Left><Left><Left><Left><Left><Left>
+" Search selected text with vimgrep in all files
+noremap <leader>g y:vimgrep /<c-r>"/jg **/*.* <CR> :copen<CR>
+" Find text with vimgrep in all files. TODO: Create a function to this and
+" avoid all these <Left>'s
+noremap <leader>G :vimgrep //gj **/*.*<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
-noremap <leader>j <C-w>_<C-w><Bar> 
-noremap <leader>k <C-w>=
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-imap jj <Esc>
+if has("mac") || has("macunix")
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
+endif
 
-let maplocalleader=';'
-noremap <leader>. :cw<CR>
+""" Misc
+set clipboard=unnamed
+set splitright
+set splitbelow
+noremap <leader>m :noh<CR>
+
+" Show full path of open file
 noremap <localleader>p :echo expand('%:p')<CR>
 
-""" ClangFormat
-noremap <leader><leader> :ClangFormat<CR>
-"
-"""" FZF
-noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+""" Helper functions
+" Load tags with scope
+function! LoadTags()
+	silent cs reset
+	silent !cscope -Rb
+	silent cs add cscope.out
+	silent !rm cscope.out
+endfunction
+
+""" Plugins
 
 """ Plugins with VimPlug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -126,58 +165,21 @@ Plug 'alanfortlink/vim-sftp'
 
 call plug#end()
 
-"""let g:ycm_autoclose_preview_window_after_completion=1
+""" Plugin settings
 
-""" Colors
-set t_Co=256
-set t_ut=
-colorscheme codedark
-set termguicolors
-let g:airline_theme = 'codedark'
+""" vim-sftp
+noremap <leader>w :call SendCurrentFileToRemote()<CR>
+noremap <leader>W :call SendAllOpenBuffersToRemote()<CR>
 
-""" Undo 
-if has('persistent_undo')			 "check if your vim version supports it
-	set undodir=$HOME/.vim/undo  "directory where the undo files will be stored
-endif			
+""" NERDTree
+noremap <bslash><bslash> :NERDTreeToggle<CR>
 
-set guioptions=
-
-nnoremap <C-e> :tabnext<CR>
-
-let g:UltiSnipsEditSplit="vertical"
-
-"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-let g:clang_format#code_style = "llvm"
-
-syntax on
-let g:python_highlight_all = 1
-
-let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
-
-hi SpellBad cterm=underline ctermfg=009 guifg=#ff0000
+""" YouCompleteMe (ycm)
+noremap <leader>i :YcmCompleter GoToInclude<CR>
+noremap <leader>d :YcmCompleter GoToDeclaration<CR>
+noremap <leader>D :YcmCompleter GoToDefinition<CR>
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-
-let $GIT_SSL_NO_VERIFY = 'true'
-
-function! LoadTags()
-	silent cs reset
-	silent !cscope -Rb
-	silent cs add cscope.out
-	silent !rm cscope.out
-endfunction
-
-" call LoadTags()
-
-" au VimEnter * silent !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-" au VimLeave * silent !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.','re![_a-zA-z0-9]'],
@@ -193,12 +195,29 @@ let g:ycm_semantic_triggers =  {
   \   'erlang' : [':'],
   \ }
 
+""" ClangFormat
+let g:clang_format#code_style = "llvm"
+noremap <leader><leader> :ClangFormat<CR>
+
+""" fzf
+noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
+
+""" SuperTab
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+""" UltiSnips
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" AsyncRun
 let g:asyncrun_open = 2
 
-function! CloseQuickFixAndEchoStatus()
-endfunction
-
-autocmd User AsyncRunStop call CloseQuickFixAndEchoStatus()
-let g:ycm_autoclose_preview_window_after_completion = 1
-
+""" Colors and Fonts
+set t_Co=256
+set t_ut=
+colorscheme codedark
+set termguicolors
+let g:airline_theme = 'codedark'
+set guifont=Fira\ Code\ 11
 
