@@ -98,17 +98,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export DOCKER_HOST=tcp://0.0.0.0:2375
-
-alias dev_proxy='http_proxy=http://bproxy.tdmz1.bloomberg.com:80 https_proxy=http://bproxy.tdmz1.bloomberg.com:80'
-alias ext_proxy='http_proxy=http://proxy.bloomberg.com:81 https_proxy=http://proxy.bloomberg.com:81'
-alias ext_proxy_git='ext_proxy GIT_NO_SSL_VERIFY=1'
-alias mvim='ext_proxy vim'
-alias mgvim='export DISPLAY=:0 && ext_proxy gvim'
-
 alias c='clear'
+alias la='ls -la'
 
-export PIPENV_PYPI_MIRROR=https://artprod.dev.bloomberg.com/artifactory/api/pypi/bloomberg-pypi/simple
+source ~/.zshrc_bloomberg
 
 export PATH=$PATH:/home/asilva173/.local/bin
 
