@@ -106,6 +106,8 @@ alias ext_proxy_git='ext_proxy GIT_NO_SSL_VERIFY=1'
 alias mvim='ext_proxy vim'
 alias mgvim='export DISPLAY=:0 && ext_proxy gvim'
 
+alias c='clear'
+
 export PIPENV_PYPI_MIRROR=https://artprod.dev.bloomberg.com/artifactory/api/pypi/bloomberg-pypi/simple
 
 export PATH=$PATH:/home/asilva173/.local/bin
