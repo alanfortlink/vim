@@ -143,7 +143,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
-Plug 'valloric/youcompleteme'
+"Plug 'valloric/youcompleteme'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'		
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -153,7 +153,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tommcdo/vim-exchange'
 Plug 'itchyny/lightline.vim'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ervandew/supertab'
 Plug 'rhysd/vim-clang-format'
@@ -162,6 +162,8 @@ Plug 'kaicataldo/material.vim'
 Plug 'qpkorr/vim-renamer'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'alanfortlink/vim-sftp'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -217,7 +219,11 @@ let g:asyncrun_open = 2
 set t_Co=256
 set t_ut=
 colorscheme codedark
-set termguicolors
 let g:airline_theme = 'codedark'
 set guifont=Fira\ Code\ 11
 
+""" GVIM:
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
