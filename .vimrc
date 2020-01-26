@@ -75,8 +75,10 @@ noremap <leader>q :q<CR>
 noremap <leader>a mj{V}gq`j
 noremap <leader>0 :tabnew<CR>:e ~/.vimTodo<CR>
 
-noremap <leader>c :vnew %<.cpp<CR>
-noremap <leader>h :vnew %<.h<CR>
+noremap <leader>c :e %<.cpp<CR>
+noremap <leader>C :vnew %<.cpp<CR>
+noremap <leader>h :e %<.h<CR>
+noremap <leader>H :vnew %<.h<CR>
 
 """ Sounds
 set noerrorbells
@@ -132,18 +134,11 @@ endfunction
 
 """ Plugins
 
-""" Plugins with VimPlug
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
-"Plug 'valloric/youcompleteme'
+" Plug 'valloric/youcompleteme'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'		
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -162,7 +157,6 @@ Plug 'kaicataldo/material.vim'
 Plug 'qpkorr/vim-renamer'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'alanfortlink/vim-sftp'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'dense-analysis/ale'
 
 call plug#end()
@@ -177,11 +171,17 @@ noremap <leader>W :call SendAllOpenBuffersToRemote()<CR>
 noremap <bslash><bslash> :NERDTreeToggle<CR>
 
 """ YouCompleteMe (ycm)
-noremap <leader>i :YcmCompleter GoToInclude<CR>
-noremap <leader>d :YcmCompleter GoToDeclaration<CR>
-noremap <leader>D :YcmCompleter GoToDefinition<CR>
+" noremap <leader>i :YcmCompleter GoToInclude<CR>
+" noremap <leader>d :YcmCompleter GoToDeclaration<CR>
+" noremap <leader>D :YcmCompleter GoToDefinition<CR>
+noremap <leader>d :ALEGoToDefinition<CR>
+noremap <leader>D :ALEGoToDefinitionInVSplit<CR>
+noremap <leader>F :ALEFindReferences<CR>
 
-let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+" let g:ale_completion_enabled = 1
+" let g:ale_enabled = 1
+
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.','re![_a-zA-z0-9]'],
@@ -218,7 +218,12 @@ let g:asyncrun_open = 2
 """ Colors and Fonts
 set t_Co=256
 set t_ut=
-colorscheme codedark
+
+try
+    colorscheme codedark
+catch
+endtry
+
 let g:airline_theme = 'codedark'
 set guifont=Fira\ Code\ 11
 
@@ -227,3 +232,10 @@ set guifont=Fira\ Code\ 11
 :set guioptions-=T  "remove toolbar
 :set guioptions-=r  "remove right-hand scroll bar
 :set guioptions-=L  "remove left-hand scroll bar
+
+:set wildignore+=cmake.bld/**,build/**
+
+set undodir=~/.vim/undodir
+
+imap <F2> BALL_LOG_INFO
+imap <F3> BALL_LOG_ERROR
