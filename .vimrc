@@ -239,3 +239,6 @@ set undodir=~/.vim/undodir
 
 imap <F2> BALL_LOG_INFO
 imap <F3> BALL_LOG_ERROR
+
+set foldmethod=syntax
+set tags=tags
