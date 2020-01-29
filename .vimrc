@@ -157,7 +157,7 @@ Plug 'kaicataldo/material.vim'
 Plug 'qpkorr/vim-renamer'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'alanfortlink/vim-sftp'
-Plug 'dense-analysis/ale'
+"Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -174,9 +174,9 @@ noremap <bslash><bslash> :NERDTreeToggle<CR>
 " noremap <leader>i :YcmCompleter GoToInclude<CR>
 " noremap <leader>d :YcmCompleter GoToDeclaration<CR>
 " noremap <leader>D :YcmCompleter GoToDefinition<CR>
-noremap <leader>d :ALEGoToDefinition<CR>
-noremap <leader>D :ALEGoToDefinitionInVSplit<CR>
-noremap <leader>F :ALEFindReferences<CR>
+" noremap <leader>d :ALEGoToDefinition<CR>
+" noremap <leader>D :ALEGoToDefinitionInVSplit<CR>
+" noremap <leader>F :ALEFindReferences<CR>
 
 " let g:ale_completion_enabled = 1
 " let g:ale_enabled = 1
