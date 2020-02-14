@@ -140,25 +140,27 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 " Plug 'valloric/youcompleteme'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'		
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'xuyuanp/nerdtree-git-plugin'
+" Plug 'junegunn/fzf.vim'		
+" Plug 'kristijanhusak/vim-hybrid-material'
+" Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'tomasiser/vim-code-dark'
+Plug 'whatyouhide/vim-gotham'
 Plug 'airblade/vim-gitgutter'
-Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tommcdo/vim-exchange'
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 "Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'ervandew/supertab'
+" Plug 'honza/vim-snippets'
+" Plug 'ervandew/supertab'
 Plug 'rhysd/vim-clang-format'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'kaicataldo/material.vim'
-Plug 'qpkorr/vim-renamer'
+" Plug 'liuchengxu/space-vim-dark'
+" Plug 'kaicataldo/material.vim'
+" Plug 'qpkorr/vim-renamer'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'alanfortlink/vim-sftp'
-"Plug 'dense-analysis/ale'
-
+Plug 'dense-analysis/ale'
+" Plug 'neoclide/coc.nvim', {'do': {-> coc#util#install()}}
+"
 call plug#end()
 
 """ Plugin settings
@@ -174,28 +176,35 @@ noremap <bslash><bslash> :NERDTreeToggle<CR>
 " noremap <leader>i :YcmCompleter GoToInclude<CR>
 " noremap <leader>d :YcmCompleter GoToDeclaration<CR>
 " noremap <leader>D :YcmCompleter GoToDefinition<CR>
-" noremap <leader>d :ALEGoToDefinition<CR>
-" noremap <leader>D :ALEGoToDefinitionInVSplit<CR>
-" noremap <leader>F :ALEFindReferences<CR>
+noremap gd :ALEGoToDefinition<CR>
+noremap gt :ALEGoToTypeDefinition<CR>
+noremap gD :ALEGoToDefinitionInVSplit<CR>
+noremap gF :ALEFindReferences<CR>
 
-" let g:ale_completion_enabled = 1
-" let g:ale_enabled = 1
+let g:ale_linters = {'cpp': ['clangtidy', 'clangd']}
+let g:ale_completion_enabled = 1
+let g:ale_enabled = 1
 
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:clang_compilation_database = './build'
 
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.','re![_a-zA-z0-9]'],
-  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-  \             're!\[.*\]\s'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'ruby' : ['.', '::'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \ }
+" set completeopt+=noinsert
+set completeopt=menu,menuone,preview,noselect,noinsert
+
+" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+" 
+" let g:ycm_semantic_triggers =  {
+"   \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+"   \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+"   \             're!\[.*\]\s'],
+"   \   'ocaml' : ['.', '#'],
+"   \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
+"   \   'perl' : ['->'],
+"   \   'php' : ['->', '::'],
+"   \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"   \   'ruby' : ['.', '::'],
+"   \   'lua' : ['.', ':'],
+"   \   'erlang' : [':'],
+"   \ }
 
 """ ClangFormat
 let g:clang_format#code_style = "llvm"
@@ -203,6 +212,8 @@ noremap <leader><leader> :ClangFormat<CR>
 
 """ fzf
 noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
+" noremap <leader>e :e **/*
+" noremap <leader>E :vs **/*
 
 """ SuperTab
 let g:SuperTabDefaultCompletionType = '<C-n>'
@@ -233,9 +244,10 @@ set guifont=Fira\ Code\ 11
 :set guioptions-=r  "remove right-hand scroll bar
 :set guioptions-=L  "remove left-hand scroll bar
 
-:set wildignore+=cmake.bld/**,build/**
+:set wildignore+=cmake.bld/**,build/**,buildsun/**
 
 set undodir=~/.vim/undodir
+set undofile
 
 imap <F2> BALL_LOG_INFO
 imap <F3> BALL_LOG_ERROR
