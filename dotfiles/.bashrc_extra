@@ -1,0 +1,69 @@
+start_tmux(){
+    temp=$(pwd)
+    lines=$(tput lines)
+    height=$((lines/3))
+    cd $1
+    tmux new-session -s $2 -d 
+    tmux send-keys -t $2 C-l
+    tmux split-window -h
+    tmux send-keys -t $2 "vim" Enter
+    tmux select-pane -L
+    tmux split-window -v
+    tmux split-window -v
+    tmux select-pane -U
+    tmux select-pane -U
+    tmux resize-pane -y $height
+    tmux send-keys -t $2 "git status" Enter
+    tmux select-pane -D
+    tmux resize-pane -y $height
+    tmux send-keys -t $2 C-l
+    tmux select-pane -D
+    tmux send-keys -t $2 C-l
+    cd $temp
+}
+
+start_day(){
+    if [[ $(tmux ls 2> /dev/null | grep cp | wc -l) = 0 ]]; then
+        start_tmux /home/asilva173/mbig/work/m_crproxy cp
+    fi
+
+    if [[ $(tmux ls 2> /dev/null | grep cs | wc -l) = 0 ]]; then
+        start_tmux /home/asilva173/mbig/work/s_cremsvc cs
+    fi
+
+    if [[ $(tmux ls 2> /dev/null | grep nt | wc -l) = 0 ]]; then
+        start_tmux /home/asilva173/notes nt
+    fi
+}
+
+end_day(){
+    cd ~/dotfiles/
+    cp ~/.vimTodo .
+    cp ~/.vimrc .
+    cp ~/.tmux.conf .
+    git add -u
+    git commit -m "update"
+    git push origin master
+    cd -
+
+    cd ~/notes/
+    git add -u
+    git commit -m "update"
+    git push origin master
+    cd -
+}
+
+# MISC
+alias la="ls -la"
+
+# GIT
+alias gs="git status"
+alias gl="git log"
+
+# TMUX
+alias ta="tmux attach -t "
+alias tn="tmux new-session -s "
+
+alias hi="start_day"
+alias commit="end_day"
+alias bye="end_day"

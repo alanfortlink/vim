@@ -1,0 +1,240 @@
+Compare two approaches for the aux fields.
+
+## Recalculate the CR033 on every split.
+- Rec. CR033 when splitting requests. (Q)
+- Add cremsvc stage to CalcRt pipeline. (W)
+- On CalcRt calls, CR033 should be 1 (no entitlement will be done in calcrt) (Q)
+    - If the override isn't automatically forwarded to the CalcRt call, that
+    probably would have to be implemented in (W)
+- Expand return from CASS before calling cremsvc. (maybe T)
+- Add overrides to cremsvc call. (Q) or (E)
+- Implement CR033 in the cremsvc workflow.
+
++ Check if CR033 isn't in the list of overrides to ignore (R)
++ Make sure that when the CASS response is expanded, the CR033 is still correct.
+
+### Notes
+- Most of the changes would be on the proxy.
+- We could opt for not sending CR033 to cremsvc. Instead, don't send the fields
+that should not be entitled.
+
+
+## Store the original request.
+- Store the original request. (Y)
+- Send original request to cremsvc calls. (Q or E)
+- Set CR033 to 1 for CalcRt calls. (Q or W)
+- Implement the original request in the cremsvc workflow.
+
+- Most of the changes would be on the cremsvc.
+- Send a list/map of the fields that should be entitled.
+    - If there are duplicate fields in the request like the following:
+        Fields: ID059 ID060 ID059 PR005 DY841
+        CR033 = 4
+
+        We either send a list with duplicate fields like:
+            [ID059 ID060 ID059]
+        Or a map like:
+            {ID059: 2, ID060: 1}
+
+
+
+
+
+
+
+## Dev Notes
+- Put the TestFixture in a separate class.
+- Put all the normal flow tests in a test file.
+- Put all the cr033 tests in a test file.
+
+## Current
+
+/**/
+    // EXPECT_CALL(d_reqContextMock, deliverResponse(_, false))
+    //     .Times(1)
+    //     .WillOnce(DoAll(Invoke([](bdlbb::Blob *const &blob, bool isFinal) {
+    //                     bcesb_InBlobStreamBuf msgStream(blob);
+    //                     bsl::istream inStream(&msgStream);
+    //                     bdem_BerDecoder decoder;
+    //                     m_crproxy::Response response;
+    //                     ASSERT_EQ(decoder.decode(inStream, &response), 0);
+    //                         bsl::cout << "FAILED" << bsl::endl;
+    //                         bsl::cout << response << bsl::endl;
+    //                     }),
+    //                     Return(0)));
+
+    void expectOverrides(const bsl::vector<m_crproxy::OverrideSpec>          &overridesExp,
+                      const bsl::vector<m_crproxy::OverrideSpec> &overridesActual)
+    {
+        EXPECT_EQ(overridesExp.size(), overridesActual.size());
+        for (size_t j = 0; j < overridesActual.size(); ++j) {
+            EXPECT_EQ(overridesExp[j].overrideId().overrideNameDefault(),
+                      overridesActual[j].overrideId().overrideNameDefault());
+            EXPECT_EQ(overridesExp[j].overrideValue().doubleVal(),
+                      overridesActual[j].overrideValue().doubleVal());
+        }
+    }
+
+    m_crproxy::OverrideSpec getOverrideSpec(const bsl::string& name, int value){
+        m_crproxy::OverrideSpec overrideSpec;
+
+        overrideSpec.overrideId().makeOverrideNameDefault();
+        overrideSpec.overrideId().overrideNameDefault() = name;
+
+        overrideSpec.overrideValue().makeDoubleVal();
+        overrideSpec.overrideValue().doubleVal() = value;
+
+        return overrideSpec;
+    }
+
+    void getEntitledAndNonEntitledFields(
+        bsl::vector<bsl::string> &cassEntitledFields,
+        bsl::vector<bsl::string> &simEntitledFields,
+        bsl::vector<bsl::string> &calcrtEntitledFields,
+        bsl::vector<bsl::string> &cassNonEntitledFields,
+        bsl::vector<bsl::string> &simNonEntitledFields,
+        bsl::vector<bsl::string> &calcrtNonEntitledFields) {
+
+        const int midCass = d_cassFields.size() / 2;
+        const int midSim = d_simFields.size() / 2;
+        const int midCalcrt = d_calcrtFields.size() / 2;
+
+        bsl::cout << midCass << "; " << midSim << "; " << midCalcrt
+                  << bsl::endl;
+        bsl::cout << *(d_cassFields.begin() + midCass - 1) << "; "
+                  << *(d_simFields.begin() + midSim - 1) << "; "
+                  << *(d_calcrtFields.begin() + midCalcrt - 1) << bsl::endl;
+
+        // For each data provider, half of its fields should be entitled and the
+        // other half should NOT.
+        cassEntitledFields = bsl::vector<bsl::string>(
+            d_cassFields.begin(), d_cassFields.begin() + midCass);
+
+        simEntitledFields = bsl::vector<bsl::string>(
+            d_simFields.begin(), d_simFields.begin() + midSim);
+
+        calcrtEntitledFields = bsl::vector<bsl::string>(
+            d_calcrtFields.begin(), d_calcrtFields.begin() + midCalcrt);
+
+        cassNonEntitledFields = bsl::vector<bsl::string>(
+            d_cassFields.begin() + midCass, d_cassFields.end());
+
+        simNonEntitledFields = bsl::vector<bsl::string>(
+            d_simFields.begin() + midSim, d_simFields.end());
+
+        calcrtNonEntitledFields = bsl::vector<bsl::string>(
+            d_calcrtFields.begin() + midCalcrt, d_calcrtFields.end());
+    }
+
+    void getDataProvidersOverrides(
+        bsl::vector<m_crproxy::OverrideSpec> &overrideSpecs,
+        bsl::vector<m_crproxy::OverrideSpec> &cassOverrideSpecs,
+        bsl::vector<m_crproxy::OverrideSpec> &simOverrideSpecs,
+        bsl::vector<m_crproxy::OverrideSpec> &calcrtOverrideSpecs,
+        bsl::vector<bsl::string> &cassEntitledFields,
+        bsl::vector<bsl::string> &simEntitledFields,
+        bsl::vector<bsl::string> &calcrtEntitledFields) {
+
+        const int cr033 = cassEntitledFields.size() + simEntitledFields.size() +
+                          calcrtEntitledFields.size() + 1;
+
+        overrideSpecs.push_back(getOverrideSpec("CR033", cr033));
+
+        cassOverrideSpecs.push_back(
+            getOverrideSpec("CR033", cassEntitledFields.size() + 1));
+
+        simOverrideSpecs.push_back(
+            getOverrideSpec("CR033", simEntitledFields.size() + 1));
+
+        calcrtOverrideSpecs.push_back(
+            getOverrideSpec("CR033", calcrtEntitledFields.size() + 1));
+    }
+
+TEST_F(Test_routing, RequestSplitSimpleWithCR033)
+{
+    // TEST CASE: simple request with one security, all types of fields
+    //------------------------------------------------------------------
+    bsl::shared_ptr<m_crproxy::YKRequest> ykRequest = bsl::make_shared<m_crproxy::YKRequest>();
+
+    bsl::vector<bsl::string> cassEntitledFields, simEntitledFields,
+        calcrtEntitledFields, cassNonEntitledFields, simNonEntitledFields,
+        calcrtNonEntitledFields;
+
+    bsl::vector<m_crproxy::OverrideSpec> overrideSpecs, cassOverrideSpecs,
+        simOverrideSpecs, calcrtOverrideSpecs;
+
+    getEntitledAndNonEntitledFields(
+        cassEntitledFields, simEntitledFields, calcrtEntitledFields,
+        cassNonEntitledFields, simNonEntitledFields, calcrtNonEntitledFields);
+
+    getDataProvidersOverrides(
+        overrideSpecs, cassOverrideSpecs, simOverrideSpecs, calcrtOverrideSpecs,
+        cassEntitledFields, simEntitledFields, calcrtEntitledFields);
+
+    bsl::vector<m_crproxy::SecuritySpec> &securitySpecs = ykRequest->ykSecuritySpecs();
+    {
+        m_crproxy::SecuritySpec ss;
+        ss.securityId().secname() = "0000";
+        ss.securityId().sectype() = crsrvpxtypes::SecurityType::SECURITY_TYPE_PARSEKEYABLE;
+        ss.overrideSpecs() = overrideSpecs;
+
+        addFields(ss, cassEntitledFields);
+        addFields(ss, simEntitledFields);
+        addFields(ss, calcrtEntitledFields);
+
+        addFields(ss, cassNonEntitledFields);
+        addFields(ss, simNonEntitledFields);
+        addFields(ss, calcrtNonEntitledFields);
+
+        securitySpecs.push_back(ss);
+    }
+
+    bsl::shared_ptr<m_crproxy::YkRequestContext> ykReqContext;
+
+
+    // WHEN: split yk req to dp requests
+    //---------------------------------------------------------------------
+    RoutingManager::DpRequestsMap dpRequests;
+    d_routingMgr->splitRequest(d_routingConfig, ykRequest, ykReqContext, &dpRequests);
+
+
+    // EXPECT: validate created requests
+    //---------------------------------------------------------------------
+    // total number of data-provider requests
+    EXPECT_EQ(3, (int)dpRequests.size());
+    for (RoutingManager::DpRequestsMap::const_iterator cit = dpRequests.begin();
+         cit != dpRequests.end(); ++cit)
+    {
+        const DataProviderInfo &dpInfo = cit->first;
+        const bsl::vector<bsl::shared_ptr<DpRequestContext> > &dpReqVec = cit->second->requests();
+
+        // only one request per data-provider
+        EXPECT_EQ(1, (int)dpReqVec.size());
+        if (dpInfo.name() == CASS_SVC) {
+            EXPECT_TRUE(dpReqVec[0]->needsTranslation());
+        } else {
+            EXPECT_FALSE(dpReqVec[0]->needsTranslation());
+        }
+
+        // check number of securities and fields for security
+        const bsl::vector<m_crproxy::SecuritySpec> &reqSecSpecs = dpReqVec[0]->ykRequest().ykSecuritySpecs();
+
+        EXPECT_EQ(1, (int)reqSecSpecs.size());
+        EXPECT_EQ("0000", reqSecSpecs[0].securityId().secname());
+        if (dpInfo.name() == CASS_SVC) {
+            expectFields(d_cassFields, reqSecSpecs[0].fieldSpecs());
+            expectOverrides(cassOverrideSpecs, reqSecSpecs[0].overrideSpecs());
+        } else if (dpInfo.name() == SIM_SVC) {
+            expectFields(d_simFields, reqSecSpecs[0].fieldSpecs());
+            expectOverrides(simOverrideSpecs, reqSecSpecs[0].overrideSpecs());
+        } else {
+            expectFields(d_calcrtFields, reqSecSpecs[0].fieldSpecs());
+            expectOverrides(calcrtOverrideSpecs, reqSecSpecs[0].overrideSpecs());
+        }
+    }
+}
+
+
+
+:wa
+
