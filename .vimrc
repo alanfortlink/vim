@@ -66,13 +66,12 @@ noremap <leader>9 9gt
 " Close quickfix
 noremap <leader>s :cclose<CR>
 " Open quickfix with 8 lines
-noremap <leader>S :copen 8<CR>
+noremap <leader>S :copen 20<CR>
 
 noremap <leader>v :vnew<CR>
 noremap <leader>n :new<CR>
 noremap <leader>t :tabnew<CR>
 noremap <leader>q :q<CR>
-noremap <leader>a mj{V}gq`j
 noremap <leader>0 :tabnew<CR>:e ~/.vimTodo<CR>
 
 noremap <leader>c :e %<.cpp<CR>
@@ -97,19 +96,6 @@ noremap <leader>g y:vimgrep /<c-r>"/jg **/*.* <CR> :copen<CR>
 " Find text with vimgrep in all files. TODO: Create a function to this and
 " avoid all these <Left>'s
 noremap <leader>G :vimgrep //gj **/*.*<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
 
 """ Misc
 set clipboard=unnamed
@@ -138,29 +124,16 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
-" Plug 'valloric/youcompleteme'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'		
-" Plug 'kristijanhusak/vim-hybrid-material'
-" Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'tomasiser/vim-code-dark'
 Plug 'whatyouhide/vim-gotham'
 Plug 'airblade/vim-gitgutter'
-" Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tommcdo/vim-exchange'
-" Plug 'itchyny/lightline.vim'
-"Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-" Plug 'ervandew/supertab'
 Plug 'rhysd/vim-clang-format'
-" Plug 'liuchengxu/space-vim-dark'
-" Plug 'kaicataldo/material.vim'
-" Plug 'qpkorr/vim-renamer'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'alanfortlink/vim-sftp'
 Plug 'dense-analysis/ale'
-" Plug 'neoclide/coc.nvim', {'do': {-> coc#util#install()}}
-"
+Plug 'itchyny/lightline.vim'
 call plug#end()
 
 """ Plugin settings
@@ -172,39 +145,22 @@ noremap <leader>W :call SendAllOpenBuffersToRemote()<CR>
 """ NERDTree
 noremap <bslash><bslash> :NERDTreeToggle<CR>
 
-""" YouCompleteMe (ycm)
-" noremap <leader>i :YcmCompleter GoToInclude<CR>
-" noremap <leader>d :YcmCompleter GoToDeclaration<CR>
-" noremap <leader>D :YcmCompleter GoToDefinition<CR>
+""" ALE
 noremap gd :ALEGoToDefinition<CR>
 noremap gt :ALEGoToTypeDefinition<CR>
 noremap gD :ALEGoToDefinitionInVSplit<CR>
 noremap gF :ALEFindReferences<CR>
 
-let g:ale_linters = {'cpp': ['clangtidy', 'clangd']}
+let g:ale_linters = {'cpp': ['clangd']}
 let g:ale_completion_enabled = 1
 let g:ale_enabled = 1
+
+let g:ale_completion_max_suggestions = 10
 
 let g:clang_compilation_database = './build'
 
 " set completeopt+=noinsert
-set completeopt=menu,menuone,preview,noselect,noinsert
-
-" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-" 
-" let g:ycm_semantic_triggers =  {
-"   \   'c' : ['->', '.','re![_a-zA-z0-9]'],
-"   \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-"   \             're!\[.*\]\s'],
-"   \   'ocaml' : ['.', '#'],
-"   \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
-"   \   'perl' : ['->'],
-"   \   'php' : ['->', '::'],
-"   \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-"   \   'ruby' : ['.', '::'],
-"   \   'lua' : ['.', ':'],
-"   \   'erlang' : [':'],
-"   \ }
+" set completeopt=menu,menuone,preview,noselect,noinsert
 
 """ ClangFormat
 let g:clang_format#code_style = "llvm"
@@ -214,14 +170,6 @@ noremap <leader><leader> :ClangFormat<CR>
 noremap <leader>e :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
 " noremap <leader>e :e **/*
 " noremap <leader>E :vs **/*
-
-""" SuperTab
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-""" UltiSnips
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " AsyncRun
 let g:asyncrun_open = 2
@@ -244,7 +192,7 @@ set guifont=Fira\ Code\ 11
 :set guioptions-=r  "remove right-hand scroll bar
 :set guioptions-=L  "remove left-hand scroll bar
 
-:set wildignore+=cmake.bld/**,build/**,buildsun/**
+:set wildignore+=cmake.bld/**,build/**,buildsun/**,ibmbuild/**,buildibm/**
 
 set undodir=~/.vim/undodir
 set undofile
