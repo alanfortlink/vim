@@ -1,0 +1,45 @@
+snippet if "if" b
+if ($1){
+    $2
+}
+endsnippet
+snippet for "int indexed for" b
+for (int ${1:i} = 0; $1 < $2; ++$1){
+    $3
+}
+endsnippet
+
+snippet forit "iterator indexed for" b
+for (${1:bsl}::vector<$2>::iterator ${3:it} = $4.begin(); $4.end(); ++$3){
+    $5
+}
+endsnippet
+
+snippet cforit "iterator indexed for" b
+for (${1:bsl}::vector<$2>::const_iterator ${3:cit} = $4.begin(); $4.end(); ++$3){
+    $5
+}
+endsnippet
+
+snippet vec "vector" b
+${1:bsl}::vector<$2> $3
+endsnippet
+
+snippet cvec "vector" b
+const ${1:bsl}::vector<$2>& $3
+endsnippet
+
+snippet match "Match struct" b
+struct $1 {
+    $2 d_$3;
+
+    $1(const $2& $3)
+    : d_$3($3)
+    {
+    }
+
+    bool operator()(const $2& $3){
+        return $3 == d_$3;
+    }
+};
+endsnippet

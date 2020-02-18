@@ -112,10 +112,10 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 """ Helper functions
 " Load tags with scope
 function! LoadTags()
-	silent cs reset
-	silent !cscope -Rb
-	silent cs add cscope.out
-	silent !rm cscope.out
+    silent cs reset
+    silent !cscope -Rb
+    silent cs add cscope.out
+    silent !rm cscope.out
 endfunction
 
 """ Plugins
@@ -126,14 +126,17 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tomasiser/vim-code-dark'
-Plug 'whatyouhide/vim-gotham'
 Plug 'airblade/vim-gitgutter'
 Plug 'tommcdo/vim-exchange'
 Plug 'rhysd/vim-clang-format'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'alanfortlink/vim-sftp'
 Plug 'dense-analysis/ale'
-Plug 'itchyny/lightline.vim'
+Plug 'frazrepo/vim-rainbow'
+Plug 'majutsushi/tagbar'
+Plug 'SirVer/ultisnips'
+
+
 call plug#end()
 
 """ Plugin settings
@@ -184,7 +187,6 @@ catch
 endtry
 
 let g:airline_theme = 'codedark'
-set guifont=Fira\ Code\ 11
 
 """ GVIM:
 :set guioptions-=m  "remove menu bar
@@ -202,3 +204,17 @@ imap <F3> BALL_LOG_ERROR
 
 set foldmethod=syntax
 set tags=tags
+
+set list
+
+autocmd BufWritePost * GitGutter
+let g:rainbow_active = 1
+
+nnoremap <F10> :TagbarToggle<CR>
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
