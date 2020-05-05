@@ -27,4 +27,5 @@ Plug 'tpope/vim-surround'
 
 """ COLORSCHEMES
 Plug 'tomasiser/vim-code-dark'
+Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
