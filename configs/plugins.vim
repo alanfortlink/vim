@@ -10,7 +10,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 """ AUTOCOMPLETE MADNESS
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 """ LINTERS
 Plug 'rhysd/vim-clang-format'
@@ -27,5 +28,4 @@ Plug 'tpope/vim-surround'
 
 """ COLORSCHEMES
 Plug 'tomasiser/vim-code-dark'
-Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()

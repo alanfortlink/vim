@@ -12,11 +12,8 @@ let g:ale_enabled = 1
 let g:ale_completion_max_suggestions = 10
 let g:clang_compilation_database = './cmake.bld'
 
-""" PREVENT ALE FROM COMPLETE
-set completeopt=menu,menuone,preview,noselect,noinsert
-
 """ CLANG FORMAT
 let g:clang_format#code_style = "google"
 
-" ASYNCRUN
+""" ASYNCRUN
 let g:asyncrun_open = 2
