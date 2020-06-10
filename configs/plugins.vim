@@ -12,6 +12,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 """ AUTOCOMPLETE MADNESS
 " Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc-dart'
+Plug 'thosakwe/vim-flutter'
 
 """ LINTERS
 Plug 'rhysd/vim-clang-format'
@@ -25,7 +29,10 @@ Plug 'skywind3000/asyncrun.vim'
 """ TEXT EDITING
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-surround'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 """ COLORSCHEMES
 Plug 'tomasiser/vim-code-dark'
+
 call plug#end()

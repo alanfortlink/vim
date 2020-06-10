@@ -53,10 +53,15 @@ noremap <leader>g y:vimgrep /<c-r>"/jg **/*.* <CR> :copen<CR>
 noremap <leader>G :vimgrep //gj **/*.*<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
 """ ALE
-noremap gd :ALEGoToDefinition<CR>
-noremap gt :ALEGoToTypeDefinition<CR>
-noremap gD :ALEGoToDefinitionInVSplit<CR>
-noremap gF :ALEFindReferences<CR>
+" noremap gd :ALEGoToDefinition<CR>
+" noremap gt :ALEGoToTypeDefinition<CR>
+" noremap gD :ALEGoToDefinitionInVSplit<CR>
+" noremap gF :ALEFindReferences<CR>
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 """ REMOVE HIGHLIGHT FROM SEARCH
 noremap mm :noh<CR>
@@ -65,9 +70,15 @@ noremap mm :noh<CR>
 noremap <localleader>p :echo expand('%:p')<CR>
 
 """ CLANG FORMAT
-noremap <leader><leader> :ClangFormat<CR>
+" noremap <leader><leader> :ClangFormat<CR>
+noremap <leader><leader> :DartFmt<CR>
 
 """ FIND FILE
 noremap <leader>f :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
 noremap <leader>F :e **/*
 
+noremap <F10> :FlutterRun<CR>
+noremap <F7> :FlutterHotRestart<CR>
+noremap <F9> :FlutterHotReload<CR>
+
+noremap <F8> :CocAction quickfix.create.missingOverrides<CR>
