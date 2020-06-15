@@ -52,12 +52,6 @@ noremap <leader>g y:vimgrep /<c-r>"/jg **/*.* <CR> :copen<CR>
 " TODO: ALSO TERRIBLE
 noremap <leader>G :vimgrep //gj **/*.*<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
-""" ALE
-" noremap gd :ALEGoToDefinition<CR>
-" noremap gt :ALEGoToTypeDefinition<CR>
-" noremap gD :ALEGoToDefinitionInVSplit<CR>
-" noremap gF :ALEFindReferences<CR>
-
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -69,16 +63,15 @@ noremap mm :noh<CR>
 """ SHOW FULL PATH OF CURRENT FILE
 noremap <localleader>p :echo expand('%:p')<CR>
 
-""" CLANG FORMAT
-" noremap <leader><leader> :ClangFormat<CR>
-noremap <leader><leader> :DartFmt<CR>
+""" CODE FORMAT
+autocmd FileType cpp,h,c noremap <leader><leader> :ClangFormat<CR>
+autocmd FileType dart noremap <leader><leader> :DartFmt<CR>
 
 """ FIND FILE
 noremap <leader>f :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
 noremap <leader>F :e **/*
 
-noremap <F10> :FlutterRun<CR>
-noremap <F7> :FlutterHotRestart<CR>
-noremap <F9> :FlutterHotReload<CR>
-
-noremap <F8> :CocAction quickfix.create.missingOverrides<CR>
+""" FLUTTER
+autocmd FileType dart noremap <F10> :FlutterRun<CR>
+autocmd FileType dart noremap <F7> :FlutterHotRestart<CR>
+autocmd FileType dart noremap <F9> :FlutterHotReload<CR>

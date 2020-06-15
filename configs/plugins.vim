@@ -19,6 +19,7 @@ Plug 'thosakwe/vim-flutter'
 
 """ LINTERS
 Plug 'rhysd/vim-clang-format'
+Plug 'maksimr/vim-jsbeautify'
 
 """ NAVIGATION
 Plug 'scrooloose/nerdtree'
