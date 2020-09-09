@@ -1,0 +1,20 @@
+# MISC
+alias la="ls -la"
+
+# GIT
+alias gs="git status"
+alias gl="git log"
+alias ga="git add"
+alias gau="git add -u"
+alias gcm="git commit -m "
+alias gca="git commit --amend -m "
+alias gcan="git commit --amend --no-edit"
+alias gd="git diff"
+alias gp="git push"
+
+# TMUX
+alias ta="tmux attach -t "
+alias tn="tmux new-session -s "
+
+alias mcmake="bbcmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .."
+alias mj="make -j"
