@@ -68,7 +68,7 @@ autocmd FileType cpp,h,c noremap <leader><leader> :ClangFormat<CR>
 autocmd FileType dart noremap <leader><leader> :DartFmt<CR>
 
 """ FIND FILE
-noremap <leader>f :call fzf#run({'sink': 'e', 'down': '30%'})<CR>
+noremap <leader>f :call fzf#run({'options': ['--preview', 'cat {}'], 'sink': 'e', 'down': '40%'})<CR>
 noremap <leader>F :e **/*
 
 """ FLUTTER

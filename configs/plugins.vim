@@ -16,6 +16,7 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'natebosch/vim-lsc'
 Plug 'natebosch/vim-lsc-dart'
 Plug 'thosakwe/vim-flutter'
+Plug 'jremmen/vim-ripgrep'
 
 """ LINTERS
 Plug 'rhysd/vim-clang-format'
