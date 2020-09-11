@@ -13,3 +13,4 @@ source ~/.vim/configs/text.vim
 
 source ~/.vim/configs/visual.vim
 source ~/.vim/configs/shortcuts.vim
+

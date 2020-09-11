@@ -47,10 +47,10 @@ noremap <leader>H :vnew %<.h<CR>
 
 """ VIMGREP THE SELECTED TEXT
 """ TODO: THIS IS TERRIBLE
-noremap <leader>g y:vimgrep /<c-r>"/jg **/*.* <CR> :copen<CR>
+noremap <leader>g y:Rg --glob "!{build,cmake.bld,compile_commands.json}" <c-r>"<CR>
 " FIND TEXT WITH VIMGREP IN ALL FILES.
 " TODO: ALSO TERRIBLE
-noremap <leader>G :vimgrep //gj **/*.*<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+noremap <leader>G :Rg --glob "!{build,cmake.bld,compile_commands.json}" 
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
@@ -68,8 +68,16 @@ autocmd FileType cpp,h,c noremap <leader><leader> :ClangFormat<CR>
 autocmd FileType dart noremap <leader><leader> :DartFmt<CR>
 
 """ FIND FILE
-noremap <leader>f :call fzf#run({'options': ['--preview', 'cat {}'], 'sink': 'e', 'down': '40%'})<CR>
+noremap <leader>f :CtrlPMixed<CR>
 noremap <leader>F :e **/*
+
+""" UNDO
+noremap <leader>u :UndotreeToggle<CR>
+
+""" TAGS
+let Tlist_Use_Right_Window   = 1
+let Tlist_WinWidth = 60
+noremap tt :TlistToggle<CR>
 
 """ FLUTTER
 autocmd FileType dart noremap <F10> :FlutterRun<CR>

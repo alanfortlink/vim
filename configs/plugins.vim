@@ -7,16 +7,18 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 """ FZF
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'kien/ctrlp.vim'
 
 """ AUTOCOMPLETE MADNESS
-" Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'natebosch/vim-lsc'
 Plug 'natebosch/vim-lsc-dart'
 Plug 'thosakwe/vim-flutter'
 Plug 'jremmen/vim-ripgrep'
+Plug 'mbbill/undotree'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+
 
 """ LINTERS
 Plug 'rhysd/vim-clang-format'
@@ -24,6 +26,7 @@ Plug 'maksimr/vim-jsbeautify'
 
 """ NAVIGATION
 Plug 'scrooloose/nerdtree'
+Plug 'vim-scripts/taglist.vim'
 
 """ ASYNC RUN
 Plug 'skywind3000/asyncrun.vim'
@@ -32,9 +35,9 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 
 """ COLORSCHEMES
+Plug 'itchyny/lightline.vim'
 Plug 'tomasiser/vim-code-dark'
 
 call plug#end()
