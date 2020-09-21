@@ -83,3 +83,10 @@ noremap tt :TlistToggle<CR>
 autocmd FileType dart noremap <F10> :FlutterRun<CR>
 autocmd FileType dart noremap <F7> :FlutterHotRestart<CR>
 autocmd FileType dart noremap <F9> :FlutterHotReload<CR>
+
+""" AUTO PAIRS
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap ' ''<left>
+inoremap " ""<left>
