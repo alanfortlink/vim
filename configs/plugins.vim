@@ -19,7 +19,6 @@ Plug 'mbbill/undotree'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
-
 """ LINTERS
 Plug 'rhysd/vim-clang-format'
 Plug 'maksimr/vim-jsbeautify'
