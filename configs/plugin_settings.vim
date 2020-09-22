@@ -18,8 +18,9 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 
-""" COC.NVIM
+""" ALE
 let g:clang_compilation_database = './build'
+let g:ale_linters = {'cpp': ['cppcheck']}
 
 """ CTRLP
 let g:ctrlp_use_caching=0

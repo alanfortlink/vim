@@ -95,3 +95,4 @@ inoremap [] []
 inoremap {} {}
 inoremap '' ''
 inoremap "" ""
+inoremap "<space> "<space>
