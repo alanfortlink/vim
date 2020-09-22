@@ -36,7 +36,7 @@ Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
 
 """ COLORSCHEMES
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
 Plug 'tomasiser/vim-code-dark'
 
 call plug#end()
