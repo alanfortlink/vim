@@ -17,7 +17,7 @@ Plug 'thosakwe/vim-flutter'
 Plug 'jremmen/vim-ripgrep'
 Plug 'mbbill/undotree'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 """ LINTERS
 Plug 'rhysd/vim-clang-format'
