@@ -66,6 +66,7 @@ noremap <localleader>p :echo expand('%:p')<CR>
 """ CODE FORMAT
 autocmd FileType cpp,h,c noremap <leader><leader> :ClangFormat<CR>
 autocmd FileType dart noremap <leader><leader> :DartFmt<CR>
+autocmd FileType js,javascript noremap <leader><leader> :CocCommand prettier.formatFile<CR>
 
 """ FIND FILE
 noremap <leader>f :CtrlPMixed<CR>
@@ -83,16 +84,3 @@ noremap tt :TlistToggle<CR>
 autocmd FileType dart noremap <F10> :FlutterRun<CR>
 autocmd FileType dart noremap <F7> :FlutterHotRestart<CR>
 autocmd FileType dart noremap <F9> :FlutterHotReload<CR>
-
-""" AUTO PAIRS
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap ' ''<left>
-inoremap " ""<left>
-inoremap () ()
-inoremap [] []
-inoremap {} {}
-inoremap '' ''
-inoremap "" ""
-inoremap "<space> "<space>
