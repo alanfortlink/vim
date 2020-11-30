@@ -1,10 +1,11 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install nodejs npm build-essential tree ripgrep neovim python3.8 python3-pip ctags tmux -y
+sudo apt install nodejs npm build-essential tree ripgrep neovim python3.8 python3-pip ctags tmux zsh -y
 python3.8 -m pip install pipenv
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 cp .tmux.conf ~
 cp .vimrc ~
@@ -29,3 +30,5 @@ nvim -c "PlugInstall" -c ":qa"
 
 TMUX_PLUGIN_MANAGER_PATH=~/.tmux/plugins/tpm ~/.tmux/plugins/tpm/bin/install_plugins
 TMUX_PLUGIN_MANAGER_PATH=~/.tmux/plugins/tpm ~/.tmux/plugins/tpm/bin/install_plugins
+
+
