@@ -47,10 +47,10 @@ noremap <leader>H :vnew %<.h<CR>
 
 """ VIMGREP THE SELECTED TEXT
 """ TODO: THIS IS TERRIBLE
-noremap <leader>g y:Rg --glob "!{build,cmake.bld,compile_commands.json}" <c-r>"<CR>
+noremap <leader>g y:Rg -j1 --glob "!{build,cmake.bld,compile_commands.json}" <c-r>"<CR>
 " FIND TEXT WITH VIMGREP IN ALL FILES.
 " TODO: ALSO TERRIBLE
-noremap <leader>G :Rg --glob "!{build,cmake.bld,compile_commands.json}" 
+noremap <leader>G :Rg -j1 --glob "!{build,cmake.bld,compile_commands.json}" 
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)

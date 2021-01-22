@@ -29,16 +29,51 @@ struct ${1:name}{
 };
 endsnippet
 
+snippet inc	"" i
+#include <${1:}>
+endsnippet
+
+snippet hdc "" i
+#include <${1:`!p snip.rv = snip.basename`.h}>
+
+namespace BloombergLP {
+namespace ${2:} {
+
+${3}
+
+} // $2
+} // BloombergLP
+
+
+endsnippet
+
 snippet hd "" i
-#ifndef ${1:}
+#ifndef ${1:`!p snip.rv = snip.basename.upper()`}
 #define $1
 
-${2:}
+namespace BloombergLP {
+namespace ${2:} {
+
+/**
+* @brief ${3:}
+*/
+class ${4:`!p snip.rv = snip.basename[snip.basename.find("_")+1:]`}{
+protected:
+	${5:}
+
+public:
+	$4();
+	~$4();
+	${6:}
+};
+
+} // $2
+} // BloombergLP
 
 #endif
 endsnippet
 
-snippet class "" i 
+snippet cl "" i 
 class ${1:name}{
 	public:
 };
@@ -48,6 +83,14 @@ snippet ns "" i
 namespace ${1:name} {
 	${2}
 } // $1
+endsnippet
+
+snippet nse "" i
+namespace {
+
+${1}
+
+}
 endsnippet
 
 snippet forvec "" i
@@ -64,4 +107,20 @@ for(bsl::vector<${1:type}>::const_iterator ${2:it} = ${3:container}.begin();
 	++$2){
 	${4};
 }
+endsnippet
+
+snippet nsp "" i
+bsl::shared_ptr<${1:type}> ${2}
+endsnippet
+
+snippet nspc "" i
+bsl::shared_ptr<const ${1:type}> ${2}
+endsnippet
+
+snippet csp "" i
+const bsl::shared_ptr<${1:type}> ${2}
+endsnippet
+
+snippet msp "" i
+bsl::make_shared<${1:type}>(${2})${3}
 endsnippet
