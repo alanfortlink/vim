@@ -53,9 +53,13 @@ noremap <leader>g y:Rg -j1 --glob "!{build,cmake.bld,compile_commands.json}" <c-
 noremap <leader>G :Rg -j1 --glob "!{build,cmake.bld,compile_commands.json}" 
 
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-declaration)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gn <Plug>(coc-diagnostic-next)
+nmap <silent> gp <Plug>(coc-diagnostic-prev)
+nmap <silent> gb :bp<CR>
 
 """ REMOVE HIGHLIGHT FROM SEARCH
 noremap mm :noh<CR>
@@ -66,10 +70,10 @@ noremap <localleader>p :echo expand('%:p')<CR>
 """ CODE FORMAT
 autocmd FileType cpp,h,c noremap <leader><leader> :ClangFormat<CR>
 autocmd FileType dart noremap <leader><leader> :DartFmt<CR>
-autocmd FileType js,javascript noremap <leader><leader> :CocCommand prettier.formatFile<CR>
+autocmd FileType js,javascript,python,py noremap <leader><leader> :CocCommand prettier.formatFile<CR>
 
 """ FIND FILE
-noremap <leader>f :CtrlPMixed<CR>
+noremap <leader>f :Files<CR>
 noremap <leader>F :e **/*
 
 """ UNDO

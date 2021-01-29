@@ -7,7 +7,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 """ FZF
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-eunuch'
 
 """ AUTOCOMPLETE MADNESS
 Plug 'dart-lang/dart-vim-plugin'
@@ -26,6 +28,7 @@ Plug 'maksimr/vim-jsbeautify'
 """ NAVIGATION
 Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/taglist.vim'
+Plug 'ton/vim-bufsurf'
 
 """ ASYNC RUN
 Plug 'skywind3000/asyncrun.vim'
