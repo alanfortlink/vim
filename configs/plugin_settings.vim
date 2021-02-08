@@ -19,7 +19,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 
 """ ALE
-let g:clang_compilation_database = './build'
+let g:clang_compilation_database = './cmake.bld/Linux'
 let g:ale_linters = {'cpp': ['cppcheck']}
 
 """ CTRLP
