@@ -29,6 +29,7 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/taglist.vim'
 Plug 'ton/vim-bufsurf'
+Plug 'tpope/vim-vinegar'
 
 """ ASYNC RUN
 Plug 'skywind3000/asyncrun.vim'
