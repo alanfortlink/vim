@@ -8,6 +8,12 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
+""" RESIZING
+noremap <C-M-h> 3<C-w><
+noremap <C-M-l> 3<C-w>>
+noremap <C-M-k> 1<C-w>-
+noremap <C-M-j> 1<C-w>+
+
 """ MAXIMIZE CURRENT WINDOW
 noremap <leader>M <C-w>_<C-w><Bar> 
 """ MAKE OPEN PANELS HAVE THE SAME SIZE
@@ -88,3 +94,8 @@ noremap tt :TlistToggle<CR>
 autocmd FileType dart noremap <F10> :FlutterRun<CR>
 autocmd FileType dart noremap <F7> :FlutterHotRestart<CR>
 autocmd FileType dart noremap <F9> :FlutterHotReload<CR>
+
+""" QUICK GOTO FILES
+nnoremap <F5> :e %<CR>zz
+nnoremap <leader>s :e ~/.vim/configs/shortcuts.vim<CR>
+nnoremap <F12> :source ~/.vimrc<CR>
