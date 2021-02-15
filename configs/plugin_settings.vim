@@ -36,3 +36,7 @@ let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 
 """ COC.NVIM
 let g:coc_enable_locationlist=0 
+
+""" RAINBOW
+let g:rainbow_active = 1
+

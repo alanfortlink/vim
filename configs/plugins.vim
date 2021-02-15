@@ -38,6 +38,8 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
+Plug 'luochen1990/rainbow'
+Plug 'Yggdroot/indentLine'
 
 """ COLORSCHEMES
 Plug 'vim-airline/vim-airline'
