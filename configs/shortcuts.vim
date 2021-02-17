@@ -50,7 +50,7 @@ noremap <leader>c :e %<.cpp<CR>
 noremap <leader>C :vnew %<.cpp<CR>
 noremap <leader>h :e %<.h<CR>
 noremap <leader>H :vnew %<.h<CR>
-noremap <leader>b :e %:p:h/CMakeLists.txt<CR>
+noremap <leader>b :vnew %:p:h/CMakeLists.txt<CR>
 
 """ VIMGREP THE SELECTED TEXT
 """ TODO: THIS IS TERRIBLE
