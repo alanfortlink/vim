@@ -49,22 +49,16 @@ endsnippet
 
 snippet hd "" i
 #ifndef ${1:`!p snip.rv = snip.basename.upper()`}
-#define $1
+#define ${2:crem}
 
 namespace BloombergLP {
 namespace ${2:} {
 
-/**
-* @brief ${3:}
-*/
-class ${4:`!p snip.rv = snip.basename[snip.basename.find("_")+1:]`}{
-protected:
-	${5:}
-
+class ${3:`!p snip.rv = snip.basename[snip.basename.find("_")+1:]`}{
 public:
-	$4();
-	~$4();
-	${6:}
+	$3();
+	~$3();
+	${5:}
 };
 
 } // $2
@@ -113,7 +107,7 @@ snippet umap "" i
 bsl::unordered_map<${1}>
 endsnippet
 
-snippet vec "" i
+snippet bv "" i
 bsl::vector<${1}>
 endsnippet
 
