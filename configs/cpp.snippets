@@ -75,15 +75,13 @@ endsnippet
 
 snippet ns "" i
 namespace ${1:name} {
-	${2}
+${2}
 } // $1
 endsnippet
 
 snippet nse "" i
 namespace {
-
 ${1}
-
 }
 endsnippet
 
@@ -96,19 +94,19 @@ snippet ::i "" i
 endsnippet
 
 snippet str "" i
-bsl::string
+${1:bsl}::string ${2:}
 endsnippet
 
 snippet uset "" i
-bsl::unordered_set<${1}>
+${1:bsl}::unordered_set<${2}> ${3}
 endsnippet
 
 snippet umap "" i
-bsl::unordered_map<${1}>
+${1:bsl}::unordered_map<${2}> ${3}
 endsnippet
 
 snippet bv "" i
-bsl::vector<${1}>
+${1:bsl}::vector<${2}> ${3}
 endsnippet
 
 snippet for "" i
@@ -140,17 +138,17 @@ for(bsl::vector<${1:type}>::const_iterator ${2:it} = ${3:container.}begin();
 endsnippet
 
 snippet nsp "" i
-bsl::shared_ptr<${1:type}> ${2}
+${1:bsl}::shared_ptr<${2:type}> ${3}
 endsnippet
 
 snippet nscp "" i
-bsl::shared_ptr<const ${1:type}> ${2}
+${1:bsl}::shared_ptr<const ${2:type}> ${3}
 endsnippet
 
 snippet csp "" i
-const bsl::shared_ptr<${1:type}> ${2}
+const ${1:bsl}::shared_ptr<${2:type}> ${3}
 endsnippet
 
 snippet msp "" i
-bsl::make_shared<${1:type}>(${2})${3}
+${1:bsl}::make_shared<${2:type}>(${3})${4}
 endsnippet
