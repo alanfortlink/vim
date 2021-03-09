@@ -67,6 +67,7 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gn <Plug>(coc-diagnostic-next)
 nmap <silent> gp <Plug>(coc-diagnostic-prev)
 nmap <silent> gb :bp<CR>
+nmap <silent> gA :CocAction<CR>
 
 """ REMOVE HIGHLIGHT FROM SEARCH
 noremap mm :noh<CR>
