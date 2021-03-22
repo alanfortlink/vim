@@ -20,6 +20,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'mbbill/undotree'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-scripts/DoxygenToolkit.vim'
 
 """ LINTERS
 Plug 'rhysd/vim-clang-format'
